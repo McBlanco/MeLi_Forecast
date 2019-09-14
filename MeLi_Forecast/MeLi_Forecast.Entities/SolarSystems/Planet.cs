@@ -23,5 +23,39 @@ namespace MeLi_Forecast.Entities.SolarSystems
             this.Traslation = traslation;
             this.Distance = distance;
         }
+
+        public override Position GetPosition(double angle)
+        {
+            Position result = new Position();
+
+            /* Get slide C of a triangle between the sun-distance (slideA), the distance-newPosition (slideB) and newPsition-sun (slideC) of the planet */
+            double slideA = this.Distance;
+            double slideB = this.Distance;
+            double slideC = Utils.GetTriangleSlideC(slideA, slideB, angle);
+
+            double triangleHeight = Utils.GetIsoscelesTriangleHeight(slideA, angle);
+            double triangleWidth = Utils.GetTriangleSlideC(slideA, triangleHeight, 180 - 90 - angle);
+
+            result.X = triangleWidth;
+            result.Y = triangleHeight;
+
+            return result;
+        }
+
+        public double GetAngle(uint day)
+        {
+            double result;
+
+            if (this.IsClockwise)
+            {
+                result = 360 - ((day * this.Traslation) % 360);
+            }
+            else
+            {
+                result = (day * this.Traslation) % 360;
+            }
+
+            return result;
+        }
     }
 }

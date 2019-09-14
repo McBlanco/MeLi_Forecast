@@ -20,5 +20,10 @@ namespace MeLi_Forecast.Entities.SolarSystems
             this.Name = name;
             this.Diameter = diameter;
         }
+
+        public virtual Position GetPosition(double angle)
+        {
+            return new Position();
+        }
     }
 }

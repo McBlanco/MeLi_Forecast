@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeLi_Forecast.Entities", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeLi_Forecast.App", "MeLi_Forecast\MeLi_Forecast.App\MeLi_Forecast.App.csproj", "{372CFF4D-4D01-4B21-8AF6-1432EF89383B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeLi_Forecast.Job", "MeLi_Forecast.Job\MeLi_Forecast.Job.csproj", "{F4AE8774-7F13-494C-A711-9F797DEE6D04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{372CFF4D-4D01-4B21-8AF6-1432EF89383B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{372CFF4D-4D01-4B21-8AF6-1432EF89383B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{372CFF4D-4D01-4B21-8AF6-1432EF89383B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4AE8774-7F13-494C-A711-9F797DEE6D04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4AE8774-7F13-494C-A711-9F797DEE6D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4AE8774-7F13-494C-A711-9F797DEE6D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4AE8774-7F13-494C-A711-9F797DEE6D04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

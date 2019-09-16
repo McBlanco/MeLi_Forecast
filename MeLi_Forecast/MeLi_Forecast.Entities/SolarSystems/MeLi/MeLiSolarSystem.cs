@@ -124,6 +124,15 @@ namespace MeLi_Forecast.Entities.SolarSystems.MeLi
             return perimeter_start > perimeter_before && perimeter_start > perimeter_end;
         }
 
+        public double GetTrianglePerimeter(uint day)
+        {
+            Position ferengiPosition = this.FerengiPlanet.GetPosition(day);
+            Position betasoidePosition = this.BetasoidePlanet.GetPosition(day);
+            Position vulcanoPosition = this.VulcanoPlanet.GetPosition(day);
+
+            return Utils.GetTrianglePerimeter(ferengiPosition, betasoidePosition, vulcanoPosition);
+        }
+
         public override string GetWeather(uint day)
         {
             string result = "none";

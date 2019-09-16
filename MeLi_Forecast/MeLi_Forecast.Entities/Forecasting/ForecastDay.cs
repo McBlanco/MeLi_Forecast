@@ -30,6 +30,9 @@ namespace MeLi_Forecast.Entities.Forecasting
         public double VulcanoAngle { get; set; }
 
         [Required]
+        public double TrianglePerimeter { get; set; }
+
+        [Required]
         public bool AreAlignedWithTheSun { get; set; }
 
         [Required]

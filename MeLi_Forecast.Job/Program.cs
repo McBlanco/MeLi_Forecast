@@ -11,6 +11,33 @@ namespace MeLi_Forecast.Job
         static void Main(string[] args)
         {
             GenerateData();
+
+            using (var dbContext = new ForecastDbContext())
+            {
+                dbContext.Database.EnsureCreated();
+
+                var drougthDays = dbContext.ForecastDays.Where(f => f.Weather == "drought").ToList();
+                var optimumDays = dbContext.ForecastDays.Where(f => f.Weather == "optimum pressure and temperature").ToList();
+                var rainyDays = dbContext.ForecastDays.OrderBy(f => f.Day).Where(f => f.Weather == "rainy" || f.Weather == "lot of rain").ToList();
+                var rainiestDay = dbContext.ForecastDays.OrderByDescending(f => f.TrianglePerimeter).First();
+
+                //Get rainy periods
+                int rainyPeriods = 0;
+                for (int i = 0; i < rainyDays.Count; i++)
+                {
+                    if(i + 1 < rainyDays.Count)
+                    {
+                        if (rainyDays.ElementAt(i + 1).Day == (rainyDays.ElementAt(i).Day + 1))
+                            rainyPeriods++;
+                    }
+                }
+
+                Console.WriteLine($"Drought periods: {drougthDays.Count}");
+                Console.WriteLine($"Optimum pressure and temperature periods: {optimumDays.Count}");
+                Console.WriteLine($"Rainy periods: {rainyPeriods}");
+                Console.WriteLine($"Rainiest day: {rainiestDay.Day}");
+                Console.ReadKey(true);
+            }
         }
 
         static void GenerateData()
@@ -36,6 +63,7 @@ namespace MeLi_Forecast.Job
                         forecastDay.AreAlignedWithoutTheSun = meliSolarSystem.AreAlignedWithoutTheSun((uint)i);
                         forecastDay.IsSunInside = meliSolarSystem.IsSunInside((uint)i);
                         forecastDay.Weather = meliSolarSystem.GetWeather((uint)i);
+                        forecastDay.TrianglePerimeter = meliSolarSystem.GetTrianglePerimeter((uint)i);
                         dbContext.ForecastDays.Add(forecastDay);
                     }
                     dbContext.SaveChanges();

@@ -17,7 +17,7 @@ namespace MeLi_Forecast.Entities.SolarSystems
 
         public override string ToString()
         {
-            return $"{{x: {this.X}, y: {this.Y}}}";
+            return $"{{\"x\": {this.X.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)}, \"y\": {this.Y.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)}}}";
         }
     }
 }

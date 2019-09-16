@@ -17,16 +17,17 @@ namespace MeLi_Forecast.Entities.SolarSystems
             this.Distance = 0;
         }
 
-        public Planet (string name, double diameter, bool isClockwise, double traslation, double distance): base(name, diameter)
+        public Planet (string name, bool isClockwise, double traslation, double distance): base(name)
         {
             this.IsClockwise = isClockwise;
             this.Traslation = traslation;
             this.Distance = distance;
         }
 
-        public override Position GetPosition(double angle)
+        public override Position GetPosition(double day)
         {
             Position result = new Position();
+            double angle = this.GetAngle(day);
 
             /* Get slide C of a triangle between the sun-distance (slideA), the distance-newPosition (slideB) and newPsition-sun (slideC) of the planet */
             double slideA = this.Distance;
@@ -34,7 +35,7 @@ namespace MeLi_Forecast.Entities.SolarSystems
             double slideC = Utils.GetTriangleSlideC(slideA, slideB, angle);
 
             double triangleHeight = Utils.GetIsoscelesTriangleHeight(slideA, angle);
-            double triangleWidth = Utils.GetTriangleSlideC(slideA, triangleHeight, 180 - 90 - angle);
+            double triangleWidth = Utils.GetTriangleSlideC(slideA, triangleHeight, 180 - 90 - angle) * ((angle >= 90 && angle <= 270) ? -1 : 1);
 
             result.X = triangleWidth;
             result.Y = triangleHeight;
@@ -42,13 +43,13 @@ namespace MeLi_Forecast.Entities.SolarSystems
             return result;
         }
 
-        public double GetAngle(uint day)
+        public double GetAngle(double day)
         {
             double result;
 
             if (this.IsClockwise)
             {
-                result = 360 - ((day * this.Traslation) % 360);
+                result = (360 - ((day * this.Traslation) % 360)) % 360;
             }
             else
             {

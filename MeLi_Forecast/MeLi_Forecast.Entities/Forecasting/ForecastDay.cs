@@ -9,10 +9,34 @@ namespace MeLi_Forecast.Entities.Forecasting
         public int Id { get; set; }
 
         [Required]
-        public int Day { get; set; }
+        public double Day { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public string FerengiPosition { get; set; }
+
+        [Required]
+        public double FerengiAngle { get; set; }
+
+        [Required]
+        public string BetasoidePosition { get; set; }
+
+        [Required]
+        public double BetasoideAngle { get; set; }
+
+        [Required]
+        public string VulcanoPosition { get; set; }
+
+        [Required]
+        public double VulcanoAngle { get; set; }
+
+        [Required]
+        public bool AreAlignedWithTheSun { get; set; }
+
+        [Required]
+        public bool AreAlignedWithoutTheSun { get; set; }
+
+        [Required]
+        public bool IsSunInside { get; set; }
 
         [Required]
         [MaxLength(128)]

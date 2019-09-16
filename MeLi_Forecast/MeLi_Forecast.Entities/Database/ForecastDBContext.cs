@@ -26,7 +26,6 @@ namespace MeLi_Forecast.App.Database
             {
                 entity.HasKey(e => e.Id);
                 entity.HasIndex(e => e.Day).IsUnique();
-                entity.HasIndex(e => e.Date).IsUnique();
             });
 
 

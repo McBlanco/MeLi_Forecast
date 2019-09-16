@@ -3,9 +3,10 @@
 Tabla de contenidos:
 1. [ Introducción ](#introduction)
 1. [ Sistema MeLi Forecast ](#meliforecast)
-    1. [ Home ]()
-    1. [ API ]()
-    1. [Job de pronóstico]()
+    1. [ Modelo de datos ](#datamodel)
+    1. [ Web App ](#webapp)
+    1. [ API ](#api)
+    1. [Job de pronóstico](#job)
 
 - - -
 
@@ -16,3 +17,26 @@ MeLi es una galaxia lejana la cual consta de 3 planetas: Ferengi, Betasoide y Vu
 <a name="meliforecast"></a>
 # Sistema MeLi Forecast
 
+<a name="datamodel"></a>
+## Modelo de datos
+El modelo de datos, tanto para las clases del proyecto como el esquema de la base de datos se encuentran https://drive.google.com/file/d/1RSYfeetFlA2hLT86YqUnuOnNmNe_DfbW/view?usp=sharing
+
+<a name="webapp"></a>
+## Web App
+En la Home del sitio de MeLi Forecast hay una interfaz interactiva para predecir el pronóstico de la galaxia. Partiendo de un estado inicial en el que en el día 0 los planetas están alineados con el sol, sobre el eje X de un sistema de ejes cartesianos imaginario.
+
+Para ver el pronóstico de los días siguientes, se debe incrementar el día en el control numérico de la sección superior. Se puede introducir manualmente un número y luego incrementar o decrementar para forzar el salto; presionando los botones del lado derecho del control o con las flechas arriba y abajo del teclado
+
+Están las leyendas con información sobre la ubicación de los planetas, su alineación con respecto del sol y el clima.
+
+Esta aplicación web obtiene los datos atacando a la API de MeLi_Forecast
+
+<a name="api"></a>
+## API
+La Url de la API es http://meliforecast.azurewebsites.net/api, con un método para obtener el clima: /forecast?day={dayBaseZero}. Es una API REST, por lo que se puede hacer una consulta directamente desde el navegador, poniendo una Url como por ejemplo http://meliforecast.azurewebsites.net/api/forecast?day=20
+
+<a name="job"></a>
+## Job
+El proyecto MeLi_Forecast.Job al ejecutarlo genera una base de datos SQLite guardando los pronósticos de los próximos 10 años partiendo desde el día 0, considerando que cada año tiene 365 días.
+
+Esta base de datos luego es desplegada en la nube para que la API la consuma y devuelva los resultados. La misma se encuentra en este repositorio, dentro de la carpeta de \MeLi_Forecast.App con el nombre de 'MeLi_Forecast.db'

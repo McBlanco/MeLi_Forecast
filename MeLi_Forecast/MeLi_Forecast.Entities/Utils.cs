@@ -34,13 +34,11 @@ namespace MeLi_Forecast.Entities
         /// <returns></returns>
         public static double GetIsoscelesTriangleHeight(double sideBase, double angle)
         {
-            //double semiPerimeter = (2 * equalSide + unequalSide) / 2;
-            //double height = Math.Sqrt(Math.Pow(equalSide, 2) - (Math.Pow(unequalSide, 2) / 4));
             double height = sideBase * Math.Sin(Utils.DegreeToRadian(angle));
             return height;
         }
 
-        public static Position GetTriangeIncenter(Position positionA, double slideA, Position positionB, double slideB, Position positionC, double slideC)
+        public static Position GetTriangleIncenter(Position positionA, double slideA, Position positionB, double slideB, Position positionC, double slideC)
         {
             Position result = new Position();
 
@@ -65,7 +63,36 @@ namespace MeLi_Forecast.Entities
 
         public static double DegreeToRadian(double angle)
         {
-            return Math.PI * angle / 180.0;
+            return Math.PI * (angle) / 180.0;
+        }
+
+        public static double GetTrianglePerimeter(Position a, Position b, Position c)
+        {
+            double slideA = Utils.GetDistance(a, b);
+            double slideB = Utils.GetDistance(b, c);
+            double slideC = Utils.GetDistance(c, a);
+
+            return slideA + slideB + slideC;
+        }
+
+        public static double sign(Position p1, Position p2, Position p3)
+        {
+            return (p1.X - p3.X) * (p2.Y - p3.Y) - (p2.X - p3.X) * (p1.Y - p3.Y);
+        }
+
+        public static bool PointInTriangle(Position pt, Position v1, Position v2, Position v3)
+        {
+            double d1, d2, d3;
+            bool has_neg, has_pos;
+
+            d1 = sign(pt, v1, v2);
+            d2 = sign(pt, v2, v3);
+            d3 = sign(pt, v3, v1);
+
+            has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+            has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+            return !(has_neg && has_pos);
         }
     }
 }

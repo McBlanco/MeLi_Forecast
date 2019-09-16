@@ -7,21 +7,18 @@ namespace MeLi_Forecast.Entities.SolarSystems
     public class CelestialObject
     {
         public string Name { get; set; }
-        public double Diameter { get; set; }
 
         public CelestialObject()
         {
             this.Name = null;
-            this.Diameter = 0;
         }
 
-        public CelestialObject(string name, double diameter)
+        public CelestialObject(string name)
         {
             this.Name = name;
-            this.Diameter = diameter;
         }
 
-        public virtual Position GetPosition(double angle)
+        public virtual Position GetPosition(double day)
         {
             return new Position();
         }

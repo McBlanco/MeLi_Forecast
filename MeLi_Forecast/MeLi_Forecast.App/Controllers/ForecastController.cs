@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MeLi_Forecast.App.Database;
+using MeLi_Forecast.Entities;
 using MeLi_Forecast.Entities.Forecasting;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,29 +12,17 @@ namespace MeLi_Forecast.App.Controllers
     public class ForecastController : Controller
     {
         [HttpGet]
-        public IEnumerable<ForecastDay> Get()
+        public ForecastDay Get(uint day)
         {
-            List<ForecastDay> result = new List<ForecastDay>();
+            ForecastDay result;
 
             using (var dbContext = new ForecastDbContext())
             {
                 dbContext.Database.EnsureCreated();
 
-                if (!dbContext.ForecastDays.Any())
-                {
-                    dbContext.ForecastDays.AddRange(new ForecastDay[]
-                        {
-                             new ForecastDay{ Weather="Sunny", Day=1, Date=DateTime.Now },
-                             new ForecastDay{ Weather="Cloudy", Day=2, Date=DateTime.Now },
-                             new ForecastDay{ Weather="Windy", Day=3, Date=DateTime.Now }
-                        });
-                    dbContext.SaveChanges();
-                }
-
-                foreach(ForecastDay forecastDay in dbContext.ForecastDays)
-                {
-                    result.Add(forecastDay);
-                }
+                result = dbContext.ForecastDays.FirstOrDefault(f => f.Day == day);
+                if (result == null)
+                    result = new ForecastDay();
             }
 
             return result;
